@@ -18,7 +18,7 @@ const faqs = [
     a: 'The best time is now. Year-round tax planning helps minimize liability. Contact me early in the year to discuss strategies.'
   },
   {
-    q: 'Are you CRA e-file certified?',
+    q: 'Are you CRA certified?',
     a: 'Yes, I\'m certified to e-file tax returns directly with Canada Revenue Agency.'
   },
   {
@@ -31,27 +31,37 @@ export default function FAQ() {
   const [open, setOpen] = useState(null)
 
   return (
-    <section id="faq" className="py-20 md:py-28 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="section-title">Frequently Asked Questions</h2>
-          <p className="section-subtitle">Can't find what you're looking for? Contact us directly.</p>
+    <section id="faq" className="section-py bg-white">
+      <div className="container-max">
+        <div className="text-center mb-16 animate-on-scroll">
+          <h2 className="text-4xl md:text-5xl font-bold text-dark mb-4">
+            Frequently Asked <span className="gradient-text">Questions</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Find answers to common questions about our services
+          </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="max-w-3xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="border border-gray-200 rounded-lg overflow-hidden hover:border-primary transition">
+            <div
+              key={index}
+              className="card-premium overflow-hidden animate-on-scroll"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
               <button
                 onClick={() => setOpen(open === index ? null : index)}
-                className="w-full px-6 py-4 text-left bg-gray-light hover:bg-opacity-50 transition font-semibold text-secondary flex justify-between items-center"
+                className="w-full px-8 py-6 flex justify-between items-center text-left hover:bg-gray-light transition-colors duration-300"
               >
-                {faq.q}
-                <span className={`text-primary text-xl transition transform ${open === index ? 'rotate-180' : ''}`}>
+                <span className="font-bold text-dark text-lg">{faq.q}</span>
+                <span className={`text-primary text-xl transition-transform duration-300 flex-shrink-0 ${
+                  open === index ? 'rotate-180' : ''
+                }`}>
                   ▼
                 </span>
               </button>
               {open === index && (
-                <div className="px-6 py-4 bg-white border-t border-gray-200 text-gray-dark leading-relaxed">
+                <div className="px-8 py-6 bg-gray-light border-t border-gray-200 text-gray-700 leading-relaxed animate-on-scroll">
                   {faq.a}
                 </div>
               )}

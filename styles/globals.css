@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,25 +12,68 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #333333;
+  overflow-x: hidden;
 }
 
-a {
-  transition: color 0.3s ease;
+/* Smooth animations on scroll */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
 }
 
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Premium button styles */
 .btn-primary {
-  @apply bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-light transition inline-block;
+  @apply relative inline-block px-8 py-3.5 rounded-lg font-semibold text-white transition-all duration-300;
+  background: linear-gradient(135deg, #0052CC 0%, #003E99 100%);
+  box-shadow: 0 10px 30px rgba(0, 82, 204, 0.3);
+}
+
+.btn-primary:hover {
+  @apply shadow-glow-lg transform -translate-y-1;
+  background: linear-gradient(135deg, #003E99 0%, #002966 100%);
 }
 
 .btn-secondary {
-  @apply border-2 border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-light transition inline-block;
+  @apply inline-block px-8 py-3.5 rounded-lg font-semibold border-2 border-primary text-primary transition-all duration-300 hover:bg-gray-light;
 }
 
-.section-title {
-  @apply text-3xl md:text-4xl font-bold text-secondary mb-4;
+/* Card hover effects */
+.card-premium {
+  @apply bg-white rounded-xl border border-gray-200 transition-all duration-300;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.section-subtitle {
-  @apply text-gray-dark text-lg md:text-xl mb-8 max-w-2xl;
+.card-premium:hover {
+  @apply -translate-y-2;
+  box-shadow: 0 20px 40px rgba(0, 82, 204, 0.15);
+  border-color: rgba(0, 82, 204, 0.2);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #0052CC 0%, #00D4FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section spacing */
+.section-py {
+  @apply py-24 md:py-32;
+}
+
+/* Container */
+.container-max {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Smooth transitions */
+* {
+  @apply transition-colors duration-300;
 }
