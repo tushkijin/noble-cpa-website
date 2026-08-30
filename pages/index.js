@@ -1,55 +1,49 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Services from '../components/Services'
-import Process from '../components/Process'
+import Interactive from '../components/Interactive'
 import Stats from '../components/Stats'
-import Team from '../components/Team'
+import Testimonials from '../components/Testimonials'
 import CTA from '../components/CTA'
-import FAQ from '../components/FAQ'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 
 export default function Home() {
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px',
-    }
+  const [hasScrolled, setHasScrolled] = useState(false)
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible')
+  useEffect(() => {
+    const handleScroll = () => {
+      const reveals = document.querySelectorAll('.reveal')
+      reveals.forEach((element) => {
+        const windowHeight = window.innerHeight
+        const elementTop = element.getBoundingClientRect().top
+        if (elementTop < windowHeight - 100) {
+          element.classList.add('active')
         }
       })
-    }, observerOptions)
+    }
 
-    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-      observer.observe(el)
-    })
-
-    return () => observer.disconnect()
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Call once on mount
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <>
       <Head>
-        <title>Noble CPA | Premium Accounting & Tax Services | Langley BC</title>
-        <meta name="description" content="Expert accounting, tax preparation, audits, and business consulting. Premium CPA services for small businesses in Langley, BC. Led by Tushar Jindal, CPA." />
-        <meta name="keywords" content="CPA, Tax Preparation, Accounting Services, Audit, Langley BC, Small Business" />
-        <meta property="og:title" content="Noble CPA | Professional Accounting Services" />
-        <meta property="og:description" content="Expert tax and accounting solutions for growing businesses" />
+        <title>Noble CPA | Modern Accounting & Tax Services | Langley BC</title>
+        <meta name="description" content="Premium accounting, tax preparation, and business consulting for forward-thinking companies. Expert CPA services in Langley, BC." />
+        <meta name="keywords" content="CPA, Tax Services, Accounting, Business Consulting, Langley BC" />
       </Head>
       <Header />
       <Hero />
       <Services />
-      <Process />
+      <Interactive />
       <Stats />
-      <Team />
+      <Testimonials />
       <CTA />
-      <FAQ />
       <Contact />
       <Footer />
     </>

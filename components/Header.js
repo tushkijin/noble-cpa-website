@@ -1,9 +1,9 @@
-import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,65 +14,65 @@ export default function Header() {
   }, [])
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white shadow-lg' : 'bg-white bg-opacity-95 backdrop-blur-md'
+    <header className={`fixed w-full z-50 transition-all duration-500 ${
+      isScrolled ? 'glass py-3' : 'py-6'
     }`}>
-      <div className="container-max">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo with Gradient */}
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">NC</span>
+            <div className="w-10 h-10 bg-gradient-to-br from-primary via-accent to-accent-green rounded-xl flex items-center justify-center font-bold text-white group-hover:shadow-[0_0_20px_rgba(0,102,255,0.5)] transition-all">
+              NC
             </div>
             <div>
-              <h1 className="text-xl font-bold text-dark group-hover:text-primary transition">Noble CPA</h1>
-              <p className="text-xs text-gray-500">Professional Accountants</p>
+              <div className="font-display font-bold text-lg text-white group-hover:text-primary transition-colors">Noble CPA</div>
+              <div className="text-xs text-gray-400 group-hover:text-accent transition-colors">Premium Accounting</div>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
-            <Link href="#services" className="text-gray-600 hover:text-primary font-medium transition">
+            <a href="#services" className="text-gray-300 hover:text-primary transition-colors font-medium">
               Services
-            </Link>
-            <Link href="#process" className="text-gray-600 hover:text-primary font-medium transition">
-              Process
-            </Link>
-            <Link href="#faq" className="text-gray-600 hover:text-primary font-medium transition">
-              FAQ
-            </Link>
-            <Link href="#contact" className="btn-primary text-sm">
+            </a>
+            <a href="#work" className="text-gray-300 hover:text-primary transition-colors font-medium">
+              How We Work
+            </a>
+            <a href="#testimonials" className="text-gray-300 hover:text-primary transition-colors font-medium">
+              Testimonials
+            </a>
+            <button className="px-6 py-2.5 bg-gradient-to-r from-primary to-accent rounded-lg text-white font-semibold hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] transition-all hover:scale-105">
               Get Started
-            </Link>
+            </button>
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 hover:bg-gray-light rounded-lg transition"
+            className="lg:hidden text-white hover:text-primary transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden border-t border-gray-200 py-4 space-y-4">
-            <Link href="#services" className="block py-2 text-gray-600 hover:text-primary font-medium">
+        {/* Mobile menu */}
+        {mobileOpen && (
+          <nav className="lg:hidden flex flex-col gap-4 mt-6 pt-6 border-t border-gray-700">
+            <a href="#services" className="text-gray-300 hover:text-primary transition-colors font-medium">
               Services
-            </Link>
-            <Link href="#process" className="block py-2 text-gray-600 hover:text-primary font-medium">
-              Process
-            </Link>
-            <Link href="#faq" className="block py-2 text-gray-600 hover:text-primary font-medium">
-              FAQ
-            </Link>
-            <Link href="#contact" className="btn-primary w-full text-center">
+            </a>
+            <a href="#work" className="text-gray-300 hover:text-primary transition-colors font-medium">
+              How We Work
+            </a>
+            <a href="#testimonials" className="text-gray-300 hover:text-primary transition-colors font-medium">
+              Testimonials
+            </a>
+            <button className="px-6 py-2.5 bg-gradient-to-r from-primary to-accent rounded-lg text-white font-semibold">
               Get Started
-            </Link>
-          </div>
+            </button>
+          </nav>
         )}
       </div>
     </header>
