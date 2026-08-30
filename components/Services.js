@@ -1,60 +1,72 @@
 const services = [
   {
     title: 'Tax Preparation',
-    description: 'Professional tax return preparation for individuals and small businesses to minimize tax liability.',
-    icon: '📋'
+    description: 'Comprehensive tax return preparation for individuals and small businesses to minimize tax liability and maximize refunds.',
+    icon: '📋',
+    details: ['Personal tax returns', 'Corporate returns', 'Tax optimization strategies']
   },
   {
     title: 'Audit Services',
-    description: 'Independent audits of financial statements to ensure accuracy and compliance with standards.',
-    icon: '✓'
+    description: 'Independent, thorough audits of financial statements ensuring accuracy, compliance, and reliability.',
+    icon: '✓',
+    details: ['Financial statement audits', 'Internal controls review', 'Compliance verification']
   },
   {
     title: 'Review Engagements',
-    description: 'Limited scope reviews of financial statements providing moderate assurance of accuracy.',
-    icon: '🔍'
+    description: 'Professional reviews providing moderate assurance on financial statement accuracy and presentation.',
+    icon: '🔍',
+    details: ['Financial reviews', 'Analytical procedures', 'Report preparation']
   },
   {
     title: 'Compilation Services',
-    description: 'Preparation of financial statements without providing assurance or audit procedures.',
-    icon: '📊'
+    description: 'Expert preparation of financial statements, organized and formatted to professional standards.',
+    icon: '📊',
+    details: ['Statement compilation', 'Financial organization', 'Professional formatting']
   },
   {
     title: 'Bookkeeping',
-    description: 'Professional bookkeeping and accounting services to keep your finances organized.',
-    icon: '📚'
+    description: 'Professional bookkeeping and accounting services to keep your business finances organized and current.',
+    icon: '📖',
+    details: ['Monthly bookkeeping', 'Invoice management', 'Bank reconciliation']
   },
   {
     title: 'Business Consulting',
-    description: 'Strategic financial consulting to help your business grow and succeed.',
-    icon: '💼'
+    description: 'Strategic financial consulting to help optimize operations, improve profitability, and drive business growth.',
+    icon: '💼',
+    details: ['Financial planning', 'Business analysis', 'Growth strategies']
   }
 ]
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 md:py-24 bg-gray-50">
+    <section id="services" className="py-20 md:py-28 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h3 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
-            Our Services
-          </h3>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Comprehensive accounting and tax services tailored to your business needs
-          </p>
+        <div className="text-center mb-16">
+          <h2 className="section-title">Our Services</h2>
+          <p className="section-subtitle">Comprehensive accounting and tax solutions tailored to your business needs</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition"
+              className="group border border-gray-200 rounded-lg p-8 hover:border-primary hover:shadow-lg transition duration-300 bg-white"
             >
-              <div className="text-4xl mb-4">{service.icon}</div>
-              <h4 className="text-xl font-semibold text-secondary mb-3">
+              <div className="text-4xl mb-4 group-hover:scale-110 transition">{service.icon}</div>
+              <h3 className="text-xl font-bold text-secondary mb-3 group-hover:text-primary transition">
                 {service.title}
-              </h4>
-              <p className="text-gray-600">{service.description}</p>
+              </h3>
+              <p className="text-gray-dark mb-4 text-sm leading-relaxed">
+                {service.description}
+              </p>
+              <ul className="space-y-2">
+                {service.details.map((detail, i) => (
+                  <li key={i} className="text-sm text-gray-dark flex items-start">
+                    <span className="text-primary mr-2 font-bold">•</span>
+                    {detail}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

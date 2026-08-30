@@ -5,9 +5,11 @@ export default function Contact() {
     name: '',
     email: '',
     phone: '',
+    subject: '',
     message: ''
   })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     setFormData({
@@ -16,113 +18,138 @@ export default function Contact() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setFormData({ name: '', email: '', phone: '', message: '' })
-    setTimeout(() => setSubmitted(false), 5000)
+    setLoading(true)
+    // In production, connect to email service
+    setTimeout(() => {
+      setSubmitted(true)
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+      setLoading(false)
+      setTimeout(() => setSubmitted(false), 5000)
+    }, 1000)
   }
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-gray-50">
+    <section id="contact" className="py-20 md:py-28 bg-gray-light">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h3 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
-            Get in Touch
-          </h3>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Ready to optimize your accounting and tax strategy? Contact us today.
-          </p>
+        <div className="text-center mb-16">
+          <h2 className="section-title">Get in Touch</h2>
+          <p className="section-subtitle">Have questions? Let's discuss your accounting needs.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="space-y-8">
-            <div>
-              <h4 className="text-lg font-semibold text-secondary mb-2">📍 Location</h4>
-              <p className="text-gray-600">Langley, BC</p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold text-secondary mb-2">📧 Email</h4>
-              <a href="mailto:tushar@noblecpa.ca" className="text-primary hover:underline">
-                tushar@noblecpa.ca
-              </a>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold text-secondary mb-2">📞 Phone</h4>
-              <a href="tel:778-700-4084" className="text-primary hover:underline">
-                778-700-4084
-              </a>
-            </div>
-            <div className="bg-primary text-white p-6 rounded-lg">
-              <h4 className="font-semibold mb-2">Available For:</h4>
-              <ul className="space-y-1 text-sm">
-                <li>✓ Consultations</li>
-                <li>✓ Tax Planning</li>
-                <li>✓ Audit Services</li>
-                <li>✓ Bookkeeping</li>
-              </ul>
-            </div>
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          {/* Contact Info Cards */}
+          <div className="bg-white rounded-lg p-8 text-center border border-gray-200 hover:shadow-md transition">
+            <div className="text-4xl mb-4">📍</div>
+            <h3 className="font-bold text-secondary mb-2">Location</h3>
+            <p className="text-gray-dark">Langley, BC, Canada</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="bg-white rounded-lg p-8 text-center border border-gray-200 hover:shadow-md transition">
+            <div className="text-4xl mb-4">📧</div>
+            <h3 className="font-bold text-secondary mb-2">Email</h3>
+            <a href="mailto:tushar@noblecpa.ca" className="text-primary hover:underline font-medium">
+              tushar@noblecpa.ca
+            </a>
+          </div>
+
+          <div className="bg-white rounded-lg p-8 text-center border border-gray-200 hover:shadow-md transition">
+            <div className="text-4xl mb-4">📞</div>
+            <h3 className="font-bold text-secondary mb-2">Phone</h3>
+            <a href="tel:778-700-4084" className="text-primary hover:underline font-medium">
+              778-700-4084
+            </a>
+          </div>
+        </div>
+
+        {/* Contact Form */}
+        <div className="max-w-2xl mx-auto bg-white rounded-lg p-8 md:p-12 border border-gray-200">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {submitted && (
-              <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
-                Thank you! We'll get back to you soon.
+              <div className="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded">
+                <p className="font-semibold">Thank you for reaching out!</p>
+                <p className="text-sm">I'll get back to you within 24 hours.</p>
               </div>
             )}
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-                placeholder="Your name"
-              />
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block font-semibold text-secondary mb-2">Full Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary transition"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold text-secondary mb-2">Email *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary transition"
+                  placeholder="your@email.com"
+                />
+              </div>
             </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-                placeholder="your@email.com"
-              />
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block font-semibold text-secondary mb-2">Phone</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary transition"
+                  placeholder="(778) 000-0000"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold text-secondary mb-2">Subject *</label>
+                <select
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary transition"
+                >
+                  <option value="">Select a service</option>
+                  <option value="tax-prep">Tax Preparation</option>
+                  <option value="audit">Audit Services</option>
+                  <option value="bookkeeping">Bookkeeping</option>
+                  <option value="consulting">Business Consulting</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
             </div>
+
             <div>
-              <label className="block text-gray-700 font-medium mb-2">Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-                placeholder="Your phone number"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Message</label>
+              <label className="block font-semibold text-secondary mb-2">Message *</label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 required
                 rows="5"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-                placeholder="Tell us about your needs..."
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary transition resize-none"
+                placeholder="Tell me about your accounting needs..."
               ></textarea>
             </div>
+
             <button
               type="submit"
-              className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+              disabled={loading}
+              className="w-full btn-primary text-lg py-4 disabled:opacity-50"
             >
-              Send Message
+              {loading ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>
